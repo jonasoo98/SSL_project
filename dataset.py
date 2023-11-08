@@ -33,7 +33,7 @@ def create_transforms(scaling_factor):
 class ContrastiveDataset(Dataset):
     def __init__(self, partition: str, img_array, scaling_factor: float = 0.5):
         self.partition = partition
-        self.img_array = img_array
+        self.img_array = self.normalize(img_array)
         self.transforms = create_transforms(scaling_factor)
 
     def __len__(self):
@@ -46,12 +46,17 @@ class ContrastiveDataset(Dataset):
         augmented_sample1 = self.augment(torch.from_numpy(sample))
         augmented_sample2 = self.augment(torch.from_numpy(sample))
 
-        augmented_sample1 = self.normalize(augmented_sample1)
-        augmented_sample2 = self.normalize(augmented_sample2)
+        # augmented_sample1 = self.normalize(augmented_sample1)
+        # augmented_sample2 = self.normalize(augmented_sample2)
 
         return augmented_sample1, augmented_sample2
 
-    def normalize(self, sample):
+    def normalize(self, sample: np.ndarray):
+        """Function to be called during initialization of dataset class.
+        Normalizes the data by subtracting the mean and dividing by the
+        standard deviation.
+
+        """
         mean = np.mean(sample / 255.0, axis=(0, 2, 3), keepdims=True)
         std = np.std(sample / 255.0, axis=(0, 2, 3), keepdims=True)
 

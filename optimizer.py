@@ -110,7 +110,7 @@ class LARS(Optimizer):
                     w_norm = torch.norm(param)
                     g_norm = torch.norm(grad)
 
-                    device = g_norm.get_device()
+                    device = g_norm.device
                     trust_ratio = torch.where(
                         w_norm.gt(0),
                         torch.where(

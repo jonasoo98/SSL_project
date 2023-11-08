@@ -31,7 +31,7 @@ class NT_Xent(nn.Module):
         we treat the other 2(N-1) augmented examples within a minibatch as
         negative examples.
         """
-        N = 2 * self.batch_size * self.world_size
+        N = 2 * self.batch_size
 
         z = torch.cat((z_i, z_j), dim=0)
         sim = self.similarity_f(z.unsqueeze(1), z.unsqueeze(0)) / self.temperature
