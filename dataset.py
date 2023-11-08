@@ -46,9 +46,6 @@ class ContrastiveDataset(Dataset):
         augmented_sample1 = self.augment(torch.from_numpy(sample))
         augmented_sample2 = self.augment(torch.from_numpy(sample))
 
-        # augmented_sample1 = self.normalize(augmented_sample1)
-        # augmented_sample2 = self.normalize(augmented_sample2)
-
         return augmented_sample1, augmented_sample2
 
     def normalize(self, sample: np.ndarray):
