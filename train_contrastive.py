@@ -200,7 +200,7 @@ def main():
     plot_results(
         training_losses=training_losses,
         validation_losses=validation_losses,
-        save_path="contrastive_loss.png",
+        save_path="plots/contrastive_loss.png",
     )
 
 
