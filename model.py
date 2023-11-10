@@ -43,7 +43,7 @@ class ContrastiveLearningModel(nn.Module):
         return x
 
     def get_encoder(self):
-        resnet = models.resnet50()
+        resnet = models.resnet50(pretrained=True)
         resnet.maxpool = nn.Identity()
         resnet.fc = nn.Identity()
         resnet.conv1 = nn.Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), bias=False)

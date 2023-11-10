@@ -109,15 +109,15 @@ def run_training(
 
             end = time.time()
 
-        if epoch % 10 == 0 and epoch > 0:
+        if (epoch + 1) % 10 == 0:
             print(f"Saved model after {epoch+1} epochs!")
-            model_path = f"models/encoder_{epoch+1}epochs.pth"
+            model_path = f"models/encoder_{epoch+1}epochs_pretrained.pth"
             torch.save(model.encoder, model_path)
 
             plot_results(
                 training_losses=training_losses,
                 validation_losses=validation_losses,
-                save_path="contrastive_loss.png",
+                save_path="contrastive_loss_pretrained.png",
             )
 
         print(
@@ -128,7 +128,7 @@ def run_training(
         )
 
     print(f"Saved model after {num_epochs} epochs!")
-    model_path = f"models/encoder_{num_epochs}epochs.pth"
+    model_path = f"models/encoder_{num_epochs}epochs_pretrained.pth"
     torch.save(model.encoder, model_path)
 
     return training_losses, validation_losses
@@ -151,19 +151,24 @@ def plot_results(training_losses: list, validation_losses: list, save_path: str)
 def main():
     # Parameters
     seed = 42
-    batch_size = 200
     temperature = 0.5
     learning_rate = 0.2
     weight_decay = 1e-6
+
     default_epochs = 2
+    default_batch_size = 100
 
     # Reading number of epochs from command line
     parser = argparse.ArgumentParser(description="Contrastive Learning")
     parser.add_argument(
         "--epochs", type=int, default=default_epochs, help="Number of training epochs"
     )
+    parser.add_argument(
+        "--batch-size", type=int, default=default_batch_size, help="Batch Size"
+    )
     args = parser.parse_args()
     num_epochs = args.epochs
+    batch_size = args.batch_size
 
     # Basic setup
     sns.set_theme()
@@ -171,10 +176,10 @@ def main():
     torch.manual_seed(seed)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    print(f"Running {num_epochs} epochs on device: {device}!")
+    print(f"Running {num_epochs} epochs with batch size {batch_size} on device: {device}!")
 
     train_dataloader, val_dataloader, test_dataloader = prepare_dataloader(
-        batch_size=200
+        batch_size=batch_size
     )
 
     # Creating model, optimizer and loss function
