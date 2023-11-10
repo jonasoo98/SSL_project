@@ -96,3 +96,14 @@ class BaselineModel(nn.Module):
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
+
+
+class BaselineModel_linear(nn.Module):
+    def __init__(self, num_channels: int, height: int, width: int):
+        super().__init__()
+        self.fc1 = nn.Linear(num_channels * height * width, 10)
+
+    def forward(self, x):
+        x = torch.flatten(x, 1)  # flatten all dimensions except batch
+        x = self.fc1(x)
+        return x
