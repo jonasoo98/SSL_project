@@ -111,13 +111,13 @@ def run_training(
 
         if (epoch + 1) % 10 == 0:
             print(f"Saved model after {epoch+1} epochs!")
-            model_path = f"models/encoder_{epoch+1}epochs_pretrained.pth"
+            model_path = f"models/encoder_{epoch+1}epochs_large.pth"
             torch.save(model.encoder, model_path)
 
             plot_results(
                 training_losses=training_losses,
                 validation_losses=validation_losses,
-                save_path="contrastive_loss_pretrained.png",
+                save_path="plots/contrastive_loss_large.png",
             )
 
         print(
@@ -128,7 +128,7 @@ def run_training(
         )
 
     print(f"Saved model after {num_epochs} epochs!")
-    model_path = f"models/encoder_{num_epochs}epochs_pretrained.pth"
+    model_path = f"models/encoder_{num_epochs}epochs_large.pth"
     torch.save(model.encoder, model_path)
 
     return training_losses, validation_losses
@@ -205,7 +205,7 @@ def main():
     plot_results(
         training_losses=training_losses,
         validation_losses=validation_losses,
-        save_path="plots/contrastive_loss.png",
+        save_path="plots/contrastive_loss_large.png",
     )
 
 
