@@ -16,5 +16,5 @@ We used `train_contrastive.py` to train the contrastive model,
 and `downstream.ipynb` for training the downstream model. The remaining code has
 been organized into separate files as they are not as crucial to understanding
 the project. An exception to this could be `loss.py`, as it contains some of
-the logic for creating negative pairs. We copied and modified `loss.py` and
-`optimizer.py` from [Spijkervet/SimCLR](https://github.com/Spijkervet/SimCLR).
+the logic for creating negative pairs. The code found in `loss.py` and
+`optimizer.py` was inspired by [Spijkervet/SimCLR](https://github.com/Spijkervet/SimCLR).
